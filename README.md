@@ -1,43 +1,68 @@
-# 📌 POSTRESA — PFE 2025/2026
+# POSTRESA — PFE (OFPPT DEVWFS) 2025–2026
 
-> Projet de Fin d'Études — Omar & Solayman
+POSTRESA is an integrated platform for **space reservations** and **institutional communication** inside a training center.
 
-## 🏗️ Project Structure
+It follows a strict **4‑role architecture**:
+- **Stagiaire**
+- **Prof**
+- **Admin**
+- **Super Admin**
 
-```
+## Monorepo structure (strict)
+
+```text
 POSTRESA/
-├── backend/          ← Backend application
-├── frontend/         ← Frontend application
-├── docs/             ← Technical documentation
-├── report/           ← Academic deliverables (LaTeX)
-├── scripts/          ← Automation scripts
-├── data/             ← Sample data & migrations
-├── .github/          ← CI/CD workflows
-├── docker-compose.yml
-└── README.md
+├── frontend/          # React (Vite) + Tailwind + Redux Toolkit
+├── backend/           # Laravel (native, Composer initialized)
+├── docs/              # UML + system architecture
+└── report/latex/       # Academic report (LaTeX)
 ```
 
-## 🚀 Getting Started
+> Note: DB migrations/seeders live **natively** in `backend/database/` (Laravel standard). No external `data/` folder for migrations.
 
-### Prerequisites
-- Docker & Docker Compose
-- Node.js v20+ / Python 3.12+
+## Tech stack & hosting
 
-### Installation
-```bash
-git clone https://github.com/amezianeomar/POSTRESA.git
-cd POSTRESA
-docker-compose up -d
-```
+### Frontend
+- React (Vite)
+- Tailwind CSS
+- **Redux Toolkit** (mandatory)
+- Hosting: **Vercel**
 
-## 📖 Documentation
-- [API Docs](./docs/api/)
-- [Architecture](./docs/architecture/)
-- [User Guide](./docs/user-guide.md)
+### Backend
+- Laravel (PHP)
+- Hosting: **Render**
 
-## 👥 Authors
-- **Omar Ameziane** — Developer
-- **Solayman** — Developer
+### Databases (Hybrid)
+- **MySQL (Alwaysdata)**: core relational data (users/roles/rooms/reservations)
+- **MongoDB (Atlas)**: announcements/comments/likes + global activity logs
 
-## 📄 License
-This project is for academic purposes.
+### Storage
+- **Cloudinary** for image uploads (store only URLs in DB)
+
+## Modules
+
+### Reservation (MySQL)
+- Rooms/resources catalog
+- Availability calendar
+- Reservation requests with workflow: pending → approved/refused
+- Admin blocking for fixed schedule
+
+### Social / Publications (MongoDB)
+- Announcements feed
+- Visibility targeting (school/class/specific users)
+- Likes & comments
+
+### Messaging
+- Integrated messaging between stagiaires and profs
+
+### Supervision / Logs (MongoDB)
+- Activity logs per school (Admin)
+- Global logs across schools (Super Admin)
+
+## Getting started (local)
+
+> The repo is being initialized. Commands and environment setup will be added as soon as `frontend/` and `backend/` are generated.
+
+## Authors
+- Omar Ameziane
+- Soulayman Elkharraz
